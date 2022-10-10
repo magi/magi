@@ -4,6 +4,8 @@ import (
     "errors"
     "github.com/gin-gonic/gin"
     "github/basefas/magi/internal/auth"
+    "github/basefas/magi/internal/utils/logger"
+    "go.uber.org/zap"
     "net/http"
     "strconv"
 )
@@ -28,6 +30,7 @@ func Re(c *gin.Context, code int, msg string, data interface{}) {
 
 func CheckResErr(c *gin.Context, err error) {
     if err != nil {
+        logger.InfoF("Response Error", zap.Any("content", err.Error()))
         Re(c, -1, err.Error(), nil)
     } else {
         Re(c, 0, "success", nil)
@@ -36,6 +39,7 @@ func CheckResErr(c *gin.Context, err error) {
 
 func CheckResErrData(c *gin.Context, err error, data interface{}) {
     if err != nil {
+        logger.InfoF("Response Error", zap.Any("content", err.Error()))
         Re(c, -1, err.Error(), nil)
     } else {
         Re(c, 0, "success", data)
