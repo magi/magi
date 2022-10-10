@@ -32,25 +32,25 @@ const (
 )
 
 type Magi struct {
-    Cluster               string
-    AppPath               string
-    ProjectPath           string
-    ConfigPath            string
-    ProjectName           string
-    VarName               string
-    AppName               string
-    Namespace             string
-    LinkConfig            uint64
-    UsePatch              uint64
-    PatchContent          string
-    ImageRegistry         string
-    ImageName             string
-    ImageTag              string
-    AppFolder             string
-    DeployType            string
-    KustomiztionResources []string
-    VarData               []string
-    ConfigFiles           []string
+    Cluster                string
+    AppPath                string
+    ProjectPath            string
+    ConfigPath             string
+    ProjectName            string
+    VarName                string
+    AppName                string
+    Namespace              string
+    LinkConfig             uint64
+    UsePatch               uint64
+    PatchContent           string
+    ImageRegistry          string
+    ImageName              string
+    ImageTag               string
+    AppFolder              string
+    DeployType             string
+    KustomizationResources []string
+    VarData                []string
+    ConfigFiles            []string
 }
 
 func Make(file string, data interface{}) (string, error) {
@@ -104,7 +104,7 @@ func MakeAppKustomization(namespace string, appName string, deployType string, i
 
 func MakeProjectKustomization(files []string) (string, error) {
     m := map[string]interface{}{}
-    m["Magi"] = Magi{KustomiztionResources: files}
+    m["Magi"] = Magi{KustomizationResources: files}
     k, err := Make(projectKustomization, m)
     if err != nil {
         return "", err

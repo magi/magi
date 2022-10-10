@@ -1,4 +1,4 @@
 resources:
-  {{- range .Magi.KustomiztionResources }}
+  {{- range .Magi.KustomizationResources }}
 - {{ . }}
   {{- end}}
