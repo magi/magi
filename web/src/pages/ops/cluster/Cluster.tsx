@@ -17,6 +17,7 @@ const Cluster: FC = () => {
     const [loading, setLoading] = useState(false);
     const [createFormVisible, setCreateFormVisible] = useState(false);
     const [updateFormVisible, setUpdateFormVisible] = useState(false);
+    const [createFormLoading, setCreateFormLoading] = useState(false);
     const title = t("cluster");
 
     const getClusterList = async () => {
@@ -33,6 +34,7 @@ const Cluster: FC = () => {
     }, []);
 
     const handleCreateCluster = async (cluster: ClusterCreateInfo) => {
+        setCreateFormLoading(true)
         const result = await createCluster(cluster);
         if (result.code === 0) {
             setCreateFormVisible(false);
@@ -40,6 +42,7 @@ const Cluster: FC = () => {
         } else {
             message.error(t("created_failed"));
         }
+        setCreateFormLoading(false)
     };
 
     const handleUpdateCluster = async (code: string, cluster: ClusterUpdateInfo) => {
@@ -165,6 +168,7 @@ const Cluster: FC = () => {
             {createFormVisible ?
                 <CreateForm
                     open={createFormVisible}
+                    loading={createFormLoading}
                     onOk={handleCreateCluster}
                     onCancel={() => {
                         setCreateFormVisible(false);

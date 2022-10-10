@@ -19,6 +19,9 @@ var (
     //go:embed  manifests/kustomization-config.yamltmpl
     configKustomization string
 
+    //go:embed  manifests/kustomization-vars.yamltmpl
+    varKustomization string
+
     //go:embed  manifests/var-configmap.yamltmpl
     varConfigMap string
 )
@@ -32,21 +35,22 @@ const (
 )
 
 type Magi struct {
-    Cluster                string
-    AppPath                string
-    ProjectPath            string
-    ConfigPath             string
-    ProjectName            string
-    VarName                string
-    AppName                string
-    Namespace              string
-    LinkConfig             uint64
-    UsePatch               uint64
-    PatchContent           string
-    ImageRegistry          string
-    ImageName              string
-    ImageTag               string
-    AppFolder              string
+    Cluster       string
+    AppPath       string
+    ProjectPath   string
+    ConfigPath    string
+    VarPath       string
+    ProjectName   string
+    VarName       string
+    AppName       string
+    Namespace     string
+    LinkConfig    uint64
+    UsePatch      uint64
+    PatchContent  string
+    ImageRegistry string
+    ImageName     string
+    ImageTag      string
+    AppFolder     string
     DeployType             string
     KustomizationResources []string
     VarData                []string
@@ -116,6 +120,16 @@ func MakeConfigKustomization(appName string, files []string) (string, error) {
     m := map[string]interface{}{}
     m["Magi"] = Magi{AppName: appName, ConfigFiles: files}
     k, err := Make(configKustomization, m)
+    if err != nil {
+        return "", err
+    }
+    return k, err
+}
+
+func MakeVarKustomization() (string, error) {
+    m := map[string]interface{}{}
+    m["Magi"] = Magi{VarPath: VarPath}
+    k, err := Make(varKustomization, m)
     if err != nil {
         return "", err
     }

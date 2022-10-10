@@ -8,13 +8,14 @@ const {Item} = Form;
 
 interface CreateFormProps {
     open: boolean;
+    loading: boolean;
     onOk: (cluster: ClusterCreateInfo) => void;
     onCancel: () => void;
 }
 
 const CreateForm: FC<CreateFormProps> = (props) => {
     const {t} = useTranslation();
-    const {open, onOk, onCancel} = props;
+    const {open, loading, onOk, onCancel} = props;
     const [form] = Form.useForm();
 
     const ok = () => {
@@ -37,6 +38,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
         <Modal
             title={t("add_cluster")}
             open={open}
+            confirmLoading={loading}
             onOk={ok}
             onCancel={onCancel}
             destroyOnClose={true}

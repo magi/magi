@@ -4,6 +4,7 @@ import (
     "context"
     "github.com/fluxcd/go-git-providers/gitprovider"
     "github.com/spf13/viper"
+    "strings"
 )
 
 type GitType string
@@ -75,4 +76,15 @@ func CommitWithShortSHA(files []CommitFile) (shortSha string, err error) {
     }
     shortSha = commit.Get().Sha[0:7]
     return shortSha, nil
+}
+
+func HasContent(path string) (bool, error) {
+    _, err := Get(path)
+    if err != nil {
+        if strings.Contains(err.Error(), "404 Not Found") {
+            return false, nil
+        }
+        return false, err
+    }
+    return true, nil
 }

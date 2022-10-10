@@ -31,13 +31,31 @@ func Create(cc AddCluster) error {
         return ErrClusterExists
     }
 
-    clusterPath := magiyaml.MakeClusterKustomizationPath(c.Code)
-    ckf, err := git.Get(clusterPath)
+    clusterPath := magiyaml.MakeClusterKustomizationPath(cc.Code)
+    hasCluster, err := git.HasContent(clusterPath)
     if err != nil {
         return err
     }
-    if ckf == "" {
+    if !hasCluster {
         return ErrClusterNotBoundWithFlux
+    }
+
+    varsPath := magiyaml.MakeVarKustomizationPath(cc.Code)
+    hasVars, err := git.HasContent(varsPath)
+    if err != nil {
+        return err
+    }
+    if !hasVars {
+        cfs := make([]git.CommitFile, 0)
+        varKustomization, err := makeVarKustomization(cc.Code)
+        if err != nil {
+            return err
+        }
+        cfs = append(cfs, varKustomization...)
+        _, err = git.CommitWithShortSHA(cfs)
+        if err != nil {
+            return err
+        }
     }
 
     nc := Cluster{Name: cc.Name, Code: cc.Code, KubeConfig: cc.KubeConfig, Status: 0}
@@ -113,4 +131,12 @@ func List() (clusters []ClusterInfo, err error) {
         clusters[i].Status = status
     }
     return clusters, err
+}
+
+func makeVarKustomization(cluster string) (cfs []git.CommitFile, err error) {
+    cfs = make([]git.CommitFile, 0)
+    kustomizationPath := magiyaml.MakeVarKustomizationPath(cluster)
+    kustomization, err := magiyaml.MakeVarKustomization()
+    cfs = append(cfs, git.CommitFile{Path: &kustomizationPath, Content: &kustomization})
+    return cfs, err
 }
