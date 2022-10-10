@@ -27,7 +27,7 @@ func Create(cc CreateConfig) error {
     }
 
     nc := Config{
-        Name:          cc.ProjectCode,
+        Name:          cc.Name,
         Code:          cc.Code,
         ProjectCode:   cc.ProjectCode,
         LabelCode:     cc.LabelCode,

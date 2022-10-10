@@ -37,18 +37,28 @@ func Create(ct CreateTemplate, uid uint64) error {
     return nil
 }
 
-func GetInfo(id uint64) (ei TemplateInfo, err error) {
-    if err = db.Mysql.
+func Get(id uint64) (t Template, err error) {
+    err = db.Mysql.
         Model(&Template{}).
         Where("id", id).
-        Find(&ei).Error; err != nil {
-        if errors.Is(err, gorm.ErrRecordNotFound) {
-            return ei, ErrTemplateNotFound
-        } else {
-            return ei, err
-        }
+        Find(&t).Error
+    return t, err
+}
+
+func GetInfo(id uint64) (ei TemplateInfo, err error) {
+    q := db.Mysql.
+        Table("magi_template AS t").
+        Select("t.id, t.name, t.created_at, t.updated_at, u.full_name AS creator").
+        Joins("LEFT JOIN magi_user AS u ON t.creator_id = u.id").
+        Where("t.deleted_at IS NULL").
+        Where("u.deleted_at IS NULL").
+        Where("t.id = ?", id)
+    err = q.Find(&ei).Error
+    if errors.Is(err, gorm.ErrRecordNotFound) {
+        return ei, ErrTemplateNotFound
+    } else {
+        return ei, err
     }
-    return ei, err
 }
 
 func Delete(id uint64) error {

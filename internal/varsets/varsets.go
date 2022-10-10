@@ -30,6 +30,7 @@ func Create(cv CreateVarSet) error {
     nv := VarSet{
         Name:        cv.Name,
         Code:        cv.Code,
+        LabelCode:   cv.LabelCode,
         Description: cv.Description,
     }
 
@@ -68,6 +69,7 @@ func GetInfo(code string) (vi VarSetInfo, err error) {
         Joins("LEFT JOIN magi_user AS u ON u.id = v.editor_id").
         Where("v.deleted_at IS NULL").
         Where("u.deleted_at IS NULL").
+        Where("v.var_set_code = ?", code).
         Order("v.id")
 
     err = q2.Find(&vars).Error

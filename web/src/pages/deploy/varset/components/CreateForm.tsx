@@ -74,7 +74,7 @@ const CreateForm: FC<CreateFormProps> = (props) => {
                       ]}>
                     <Input placeholder={t("please_enter_var_set_code")} />
                 </Item>
-                <Item name='label'
+                <Item name='label_code'
                       label={t("label")}
                       rules={[{required: true}]}>
                     <Select placeholder={t("please_select_label")}>

@@ -30,7 +30,7 @@ func Create(cp CreateProject) error {
         return ErrProjectExists
     }
 
-    t, err := templates.GetInfo(cp.TemplateID)
+    t, err := templates.Get(cp.TemplateID)
     if err != nil {
         return err
     }
@@ -66,6 +66,7 @@ func Create(cp CreateProject) error {
     np := Project{
         Name:        cp.Name,
         Code:        cp.Code,
+        TemplateID:  t.ID,
         Commit:      shortSha,
         Description: cp.Description,
     }

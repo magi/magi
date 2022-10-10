@@ -114,10 +114,10 @@ func ListByLabelAndType(label string, envType string) (envs []EnvInfo, err error
         q.Where("l.code = ?", label)
     }
     if envType != "" {
-        q.Where("magi_env.type = ?", envType)
+        q.Where("e.type = ?", envType)
     }
 
     err = q.Find(&envs).Error
 
-    return envs, nil
+    return envs, err
 }
