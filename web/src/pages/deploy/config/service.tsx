@@ -1,13 +1,5 @@
 import { del, get, post, put, ResponseData } from "../../../utils/request";
-import {
-    ConfigCreateInfo,
-    ConfigFileListItem,
-    ConfigHistoryListItem,
-    ConfigInfo,
-    ConfigListItem,
-    ConfigUpdateInfo,
-    EditConfigFile
-} from "./data";
+import { ConfigCreateInfo, ConfigFileListItem, ConfigHistoryListItem, ConfigInfo, ConfigListItem, ConfigUpdateInfo, EditConfigFile } from "./data";
 
 export async function configList(): Promise<ResponseData<ConfigListItem[]>> {
     return await get<ConfigListItem[]>("/api/v1/configs");

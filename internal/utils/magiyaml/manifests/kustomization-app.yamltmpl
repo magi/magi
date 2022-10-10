@@ -2,9 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: {{ .Magi.Namespace }}
 commonLabels:
-	magi-app: {{ .Magi.AppName }}
+  magi-app: {{ .Magi.AppName }}
 commonAnnotations:
-	magi-deploy-type: {{ .Magi.DeployType }}
+  magi-deploy-type: {{ .Magi.DeployType }}
 resources:
 - ../../../../{{ .Magi.ProjectPath }}/{{ .Magi.AppName }}
   {{- if eq .Magi.LinkConfig 1 }}

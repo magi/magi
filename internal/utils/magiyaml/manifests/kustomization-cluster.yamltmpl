@@ -1,16 +1,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-	name: {{ .Magi.Cluster }}-{{ .Magi.Namespace }}-{{ .Magi.AppName }}
-	namespace: flux-system
+  name: {{ .Magi.Cluster }}-{{ .Magi.Namespace }}-{{ .Magi.AppName }}
+  namespace: flux-system
 spec:
-	interval: 1m0s
-	sourceRef:
-		kind: GitRepository
-		name: flux-system
-	path: ./{{ .Magi.AppPath }}/{{ .Magi.Cluster }}/{{ .Magi.Namespace }}/{{ .Magi.AppName }}
-	prune: true
-	postBuild:
-		substituteFrom:
-		- kind: ConfigMap
-		  name: {{ .Magi.VarName }}
+  interval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./{{ .Magi.AppPath }}/{{ .Magi.Cluster }}/{{ .Magi.Namespace }}/{{ .Magi.AppName }}
+  prune: true
+  postBuild:
+    substituteFrom:
+    - kind: ConfigMap
+      name: {{ .Magi.VarName }}
