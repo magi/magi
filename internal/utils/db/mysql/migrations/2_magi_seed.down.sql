@@ -1,0 +1,12 @@
+TRUNCATE TABLE casbin_rule;
+TRUNCATE TABLE magi_menu;
+TRUNCATE TABLE magi_role_menu;
+TRUNCATE TABLE magi_user;
+TRUNCATE TABLE magi_group;
+TRUNCATE TABLE magi_role;
+TRUNCATE TABLE magi_group_role;
+TRUNCATE TABLE magi_user_role;
+TRUNCATE TABLE magi_user_group;
+TRUNCATE TABLE magi_label;
+TRUNCATE TABLE magi_template;
+TRUNCATE TABLE magi_template_manifest;

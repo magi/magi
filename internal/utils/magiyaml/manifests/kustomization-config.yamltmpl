@@ -1,0 +1,6 @@
+configMapGenerator:
+- name: configmap-{{ .Magi.AppName }}
+  files:
+  {{- range .Magi.ConfigFiles }}
+  - {{ . }}
+  {{- end}}

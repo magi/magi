@@ -1,0 +1,6 @@
+build
+.gitignore
+.dockerignore
+.github
+.vscode
+README.md

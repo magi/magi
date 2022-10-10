@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: {{ .Magi.Namespace }}
+commonLabels:
+	magi-app: {{ .Magi.AppName }}
+commonAnnotations:
+	magi-deploy-type: {{ .Magi.DeployType }}
+resources:
+- ../../../../{{ .Magi.ProjectPath }}/{{ .Magi.AppName }}
+  {{- if eq .Magi.LinkConfig 1 }}
+- {{ .Magi.ConfigPath }}
+  {{- end }}
+{{- if eq .Magi.UsePatch 1 }}
+patchesStrategicMerge:
+- patch.yaml
+{{- end }}
+images:
+- name: {{ .Magi.AppName }}
+  newName: {{ .Magi.ImageRegistry }}/{{ .Magi.ImageName }}
+  newTag: {{ .Magi.ImageTag }}

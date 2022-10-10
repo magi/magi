@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+	name: {{ .Magi.VarName }}
+	namespace: flux-system
+data:
+  {{- range .Magi.VarData }}
+  {{ . }}
+  {{- end}}
