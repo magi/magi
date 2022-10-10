@@ -11,9 +11,9 @@ import (
 )
 
 var (
-    ErrClusterNotFound         = errors.New("Cluster not found")
-    ErrClusterNotBoundWithFlux = errors.New("Cluster not bound with flux")
-    ErrClusterExists           = errors.New("Cluster already exists")
+    ErrClusterNotFound         = errors.New("cluster not found")
+    ErrClusterNotBoundWithFlux = errors.New("cluster not bound with flux")
+    ErrClusterExists           = errors.New("cluster already exists")
 )
 
 func Create(cc AddCluster) error {
