@@ -8,8 +8,6 @@ import (
     "go.uber.org/zap"
     gormLogger "gorm.io/gorm/logger"
     "gorm.io/gorm/utils"
-    "log"
-    "os"
     "strings"
     "time"
 )
@@ -20,19 +18,11 @@ type LogConfig struct {
     IgnoreRecordNotFoundError bool
 }
 
-var (
-    Default = New(log.New(os.Stdout, "\r\n", log.LstdFlags), LogConfig{
-        SlowThreshold:             200 * time.Millisecond,
-        LogLevel:                  gormLogger.Warn,
-        IgnoreRecordNotFoundError: false,
-    })
-)
-
 type Writer interface {
     Printf(string, ...any)
 }
 
-func New(writer Writer, config LogConfig) gormLogger.Interface {
+func NewDBLogger(writer Writer, config LogConfig) gormLogger.Interface {
     return &dbLogger{
         Writer:    writer,
         LogConfig: config,

@@ -23,6 +23,7 @@ func Init() {
     viper.SetDefault("db.mysql.port", 3306)
     viper.SetDefault("db.mysql.migrate", true)
     viper.SetDefault("git.branch", "main")
+    viper.SetDefault("db.mysql.slowThreshold", 2000)
 
     err := viper.ReadInConfig()
     if err != nil {

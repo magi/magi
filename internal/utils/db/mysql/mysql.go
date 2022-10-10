@@ -7,7 +7,10 @@ import (
     "gorm.io/driver/mysql"
     "gorm.io/gorm"
     gormLogger "gorm.io/gorm/logger"
+    "log"
+    "os"
     "strings"
+    "time"
 )
 
 type DBMySQLError struct {
@@ -25,12 +28,20 @@ func Init() {
 
     dsn := fmt.Sprintf("%s:%s@(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", user, password, host, port, name)
 
+    newLogger := db.NewDBLogger(
+        log.New(os.Stdout, "\r\n", log.LstdFlags),
+        db.LogConfig{
+            SlowThreshold:             viper.GetDuration("db.mysql.slowThreshold") * time.Millisecond,
+            LogLevel:                  getDbLogLevel(),
+            IgnoreRecordNotFoundError: true,
+        })
+
     db.Mysql, err = gorm.Open(mysql.New(mysql.Config{
         DSN:                      dsn,
         DefaultStringSize:        255,
         DisableDatetimePrecision: true,
     }), &gorm.Config{
-        Logger: db.Default.LogMode(getDbLogLevel()),
+        Logger: newLogger,
     })
     if err != nil {
         if strings.Contains(err.Error(), "Error 1049") {

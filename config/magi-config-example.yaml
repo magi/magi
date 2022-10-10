@@ -36,6 +36,8 @@ db:
     name: magi
     # Optional, default: true
     migrate: true
+    # Optional, uint millisecond, default: 2000
+    slowThreshold: 2000
 
 # git configs
 git:
