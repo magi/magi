@@ -1,4 +1,4 @@
-name: Docker
+name: Docker-chn
 
 on:
   push:
@@ -38,7 +38,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v3
       with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-chn
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
     - name: Build and push Docker image
       id: build-and-push
@@ -48,5 +48,5 @@ jobs:
         platforms: linux/amd64,linux/arm64
         file: ./hack/docker/chn.Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ steps.meta.outputs.tags }}-chn
         labels: ${{ steps.meta.outputs.labels }}
