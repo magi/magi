@@ -1,13 +1,14 @@
 package magiyaml
 
 type AppKustomization struct {
-    ApiVersion            string      `yaml:"apiVersion"`
-    Kind                  string      `yaml:"kind"`
-    Namespace             string      `yaml:"namespace"`
-    CommonLabels          CommonLabel `yaml:"commonLabels"`
-    Resources             []string    `yaml:"resources"`
-    PatchesStrategicMerge []string    `yaml:"patchesStrategicMerge"`
-    Images                []Image     `yaml:"images"`
+    ApiVersion            string            `yaml:"apiVersion"`
+    Kind                  string            `yaml:"kind"`
+    Namespace             string            `yaml:"namespace"`
+    CommonLabels          CommonLabels      `yaml:"commonLabels"`
+    CommonAnnotations     CommonAnnotations `yaml:"commonAnnotations"`
+    Resources             []string          `yaml:"resources"`
+    PatchesStrategicMerge []string          `yaml:"patchesStrategicMerge"`
+    Images                []Image           `yaml:"images"`
 }
 
 type Image struct {
@@ -16,7 +17,10 @@ type Image struct {
     NewTag  string `yaml:"newTag"`
 }
 
-type CommonLabel struct {
-    MagiApp        string `yaml:"magi-app"`
+type CommonLabels struct {
+    MagiApp string `yaml:"magi-app"`
+}
+
+type CommonAnnotations struct {
     MagiDeployType string `yaml:"magi-deploy-type"`
 }

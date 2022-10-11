@@ -35,22 +35,22 @@ const (
 )
 
 type Magi struct {
-    Cluster       string
-    AppPath       string
-    ProjectPath   string
-    ConfigPath    string
-    VarPath       string
-    ProjectName   string
-    VarName       string
-    AppName       string
-    Namespace     string
-    LinkConfig    uint64
-    UsePatch      uint64
-    PatchContent  string
-    ImageRegistry string
-    ImageName     string
-    ImageTag      string
-    AppFolder     string
+    Cluster                string
+    AppPath                string
+    ProjectPath            string
+    ConfigPath             string
+    VarPath                string
+    ProjectName            string
+    VarName                string
+    AppName                string
+    Namespace              string
+    LinkConfig             uint64
+    UsePatch               uint64
+    PatchContent           string
+    ImageRegistry          string
+    ImageName              string
+    ImageTag               string
+    AppFolder              string
     DeployType             string
     KustomizationResources []string
     VarData                []string
