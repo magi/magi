@@ -1,7 +1,7 @@
 # local
 setup: config
 
-.PHONY: config
+.PHONY: config run-server build-server run-ui build-ui clean clean-web build-docker-dev
 config: config/magi-config-example.yaml
 	cp -n config/magi-config-example.yaml config/magi-config.yaml
 
