@@ -1,0 +1,2 @@
+CREATE USER 'magi'@'%' IDENTIFIED BY 'Magi@1';
+GRANT ALL PRIVILEGES ON *.* TO 'magi'@'%';

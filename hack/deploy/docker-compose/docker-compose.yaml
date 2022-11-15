@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  magi-mysql:
+    image: mysql/mysql-server:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "P@ssw0rd"
+      MYSQL_USER: "root"
+      MYSQL_DATABASE: "magi"
+    volumes:
+    - ./mysql/config/my.cnf:/etc/my.cnf
+    - ./mysql/init:/docker-entrypoint-initdb.d/
+    networks:
+    - magi-net
+
+  magi:
+    image: ghcr.io/magi/magi:latest
+    volumes:
+    - ./config:/magi/config
+    depends_on:
+    - magi-mysql
+    restart: always
+    networks:
+    - magi-net
+    ports:
+    - "8086:8086"
+
+networks:
+  magi-net:
