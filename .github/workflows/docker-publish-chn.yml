@@ -1,4 +1,4 @@
-name: Docker-chn
+name: Release-chn
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -35,18 +35,23 @@ jobs:
         password: ${{ secrets.GHCR_PAT }}
 
     - name: Extract Docker metadata
-      id: meta
-      uses: docker/metadata-action@v3
+      id: meta-chn
+      uses: docker/metadata-action@v4
       with:
         images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        flavor: |
+          latest=false
+          suffix=-chn
 
-    - name: Build and push Docker image
-      id: build-and-push
+    - name: Build and push Docker chn image
+      id: build-and-push-chn
       uses: docker/build-push-action@v3
       with:
         context: .
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64, linux/arm64
         file: ./hack/docker/chn.Dockerfile
         push: true
-        tags: ${{ steps.meta.outputs.tags }}-chn
-        labels: ${{ steps.meta.outputs.labels }}
+        tags: ${{ steps.meta-chn.outputs.tags }}
+        labels: ${{ steps.meta-chn.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
