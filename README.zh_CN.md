@@ -81,7 +81,7 @@ Magi 是一个基于 K8s 的 GitOps PaaS。可以通过可视化的页面对项�
 3. 跳转到 docker compose 目录
 
     ```shell
-    cd magi/hack/docker-compose
+    cd magi/hack/deploy/docker-compose
     ```
 
 4. 修改 Magi 的配置文件 `config/magi-config.yaml`, git 仓库需要配置为上面 FluxCD 的仓库

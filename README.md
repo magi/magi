@@ -82,7 +82,7 @@ Prefix: You need to have a K8s cluster, an environment with docker & docker-comp
 3. Go to docker compose file
 
     ```shell
-    cd magi/hack/docker-compose
+    cd magi/hack/deploy/docker-compose
     ```
 
 4. Change Magi config with file `config/magi-config`, git repo need to set the repository configured by FluxCD above
